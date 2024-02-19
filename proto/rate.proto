@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+service Rate {
+    // GetPriceNow returns price for given currency and coin
+    rpc GetPriceNow (GetPriceNowRequest) returns (GetPriceNowResponse) {}
+
+    // GetPrice returns price for given currency and coin and update
+    rpc GetPrice (GetPriceRequest) returns (stream GetPriceResponse) {}
+}
+
+message GetPriceNowRequest {
+    string currency = 1;
+    string coin = 2;
+}
+
+message GetPriceNowResponse {
+    // price is string to handle rounding problems
+    string price = 1;
+}
+
+message GetPriceRequest {
+    repeated string currency = 1;
+    repeated string coin = 2;
+}
+
+message GetPriceResponse {
+    string currency = 1;
+    string coin = 2;
+    string price = 3;
+}
+
